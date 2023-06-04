@@ -1,4 +1,14 @@
 {
+  "name": "@petitgouter/api",
+  "version": "0.0.0",
+  "description": "Serverless backend for the petitgouter project.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/rfrad/api.petitgouter.org"
+  },
+  "scripts": {
+  },
   "devDependencies": {
     "typescript": "^5.1.3"
   }
