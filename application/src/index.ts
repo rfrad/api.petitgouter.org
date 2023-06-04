@@ -1,3 +1,5 @@
-const hello = (): string => {
-    return "hello";
+export class Printer {
+    public echo(): string {
+        return "hello";
+    }
 }

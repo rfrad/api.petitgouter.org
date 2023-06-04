@@ -7,7 +7,9 @@
     "type": "git",
     "directory": "https://github.com/rfrad/api.petitgouter.org"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "ts-node node_modules/jasmine/bin/jasmine"
+  },
   "devDependencies": {
     "@types/jasmine": "^4.3.2",
     "jasmine": "^5.0.0",
