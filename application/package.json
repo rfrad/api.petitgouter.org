@@ -7,9 +7,10 @@
     "type": "git",
     "directory": "https://github.com/rfrad/api.petitgouter.org"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "devDependencies": {
+    "@types/jasmine": "^4.3.2",
+    "jasmine": "^5.0.0",
     "typescript": "^5.1.3"
   }
 }
