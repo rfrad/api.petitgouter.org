@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Petitgouter APIs
+
+Parameters: # Can be accessed process.env.ENV
+    ENV:
+      Type: String
+
+Resources:
+  RestAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      MinimumCompressionSize: 0
+      Name: TODO # TODO: Define API Gateway name
+      AlwaysDeploy: true
+      
+  Info: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/handlers
+      Handler: info-handler.handle
+      Runtime: nodejs18.x
+      Events:
+        GetInfo:
+          Type: Api
+          Properties:
+            RestApiId: !Ref RestAPI
+            Path: /info
+            Method: get
+      Environment:
+        Variables:
+          ENV: !Ref ENV
+
+Outputs:
+  ApiUrl:
+    Description: API Gateway endpoint URL
+    Value:
+      Fn::Sub: https://${RestAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod
+  ApiId:
+    Description: API Gateway ID
+    Value:
+      Fn::Sub: ${RestAPI}
