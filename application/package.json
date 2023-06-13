@@ -8,11 +8,14 @@
     "directory": "https://github.com/rfrad/api.petitgouter.org"
   },
   "scripts": {
+    "build": "npx tsc",
     "test": "ts-node node_modules/jasmine/bin/jasmine"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.117",
     "@types/jasmine": "^4.3.2",
     "jasmine": "^5.0.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.1.3"
   }
 }
