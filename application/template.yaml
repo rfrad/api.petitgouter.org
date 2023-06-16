@@ -13,7 +13,7 @@ Resources:
     Properties:
       StageName: Prod
       MinimumCompressionSize: 0
-      Name: TODO # TODO: Define API Gateway name
+      Name: Backend API
       AlwaysDeploy: true
       
   Info: 
@@ -27,7 +27,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref RestAPI
-            Path: /info
+            Path: /info/v1
             Method: get
       Environment:
         Variables:
