@@ -7,7 +7,7 @@ export const handle = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 
 export const VERSION: string = 'X.X.X';
 
-export class InfoHandler {
+class InfoHandler {
     handle(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResultV2> {
         return Promise.resolve({
             statusCode: 200,
