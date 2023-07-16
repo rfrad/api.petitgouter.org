@@ -3,18 +3,34 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   Backend APIs
 
-Parameters: # Can be accessed process.env.ENV
-    ENV:
-      Type: String
+Parameters: # Can be accessed using process.env.apiRootUrl
+  apiRootUrl:
+    Type: String
+  apiRootUrlRoute53:
+    Type: String
+  apiRootCertificateArn:
+    Type: String
 
 Resources:
   RestAPI:
     Type: AWS::Serverless::Api
     Properties:
+      DisableExecuteApiEndpoint: true
       StageName: Prod
-      MinimumCompressionSize: 0
       Name: Backend API
       AlwaysDeploy: true
+      Domain: 
+        DomainName: !Ref apiRootUrl
+        CertificateArn: !Ref apiRootCertificateArn
+        EndpointConfiguration: REGIONAL
+        Route53:
+          HostedZoneId: !Ref apiRootUrlRoute53
+      Auth:
+        Authorizers:
+          OpenToAll:
+            FunctionArn: !GetAtt OpenToAllAuthorizer.Arn
+            Identity:
+              ReauthorizeEvery: 300 # seconds
       
   Info: 
     Type: AWS::Serverless::Function
@@ -29,9 +45,18 @@ Resources:
             RestApiId: !Ref RestAPI
             Path: /info/v1
             Method: get
-      Environment:
-        Variables:
-          ENV: !Ref ENV
+            # No Authorizer will be required for this API as
+            # it would still require the Authorization header 
+            # to be provided.
+            # Auth:
+            #   Authorizer: OpenToAll
+
+  OpenToAllAuthorizer:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/authorizers
+      Handler: open-to-all.authorize
+      Runtime: nodejs18.x
 
 Outputs:
   ApiUrl:
